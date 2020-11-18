@@ -19,11 +19,10 @@ export default (state = initialState, action) => {
     case ADD_CLASS:
       return {
         ...state,
+        classes: action.payload,
       };
     case DELETE_CLASS:
-      return {
-        ...state,
-      };
+      return state;
     case FOUND_CLASS:
       return {
         ...state,
