@@ -22,7 +22,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={SigninForm} />
         <Route path="/signup" component={SignupForm} />
-        <PrivateRoute path="/dashboard/:role/:id" component={Dashboard} />
+        <PrivateRoute path="/dashboard/:id" component={Dashboard} />
         {/* <PrivateRoute path="/dashboard/2/:id" component={InstructorDashboard} /> */}
         <Route path="/corie" component={SignupForm} />
         <Route path="/george" component={SigninForm} />
