@@ -5,6 +5,7 @@ export const login = (user) => {
   return axios
     .post(
       "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/login",
+      // "https://cors-anywhere.herokuapp.com/http://localhost:5000/api/auth/login",
       user
     )
     .then((res) => {

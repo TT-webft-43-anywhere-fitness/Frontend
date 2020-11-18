@@ -38,20 +38,13 @@ export default class SignupForm extends Component {
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     const newUser = {
       ...this.state.formValues,
       role: this.state.formValues.role ? 2 : 1,
     };
-    // Axios.post("https://covid-bod.herokuapp.com/api/auth/register", newUser)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    signup(newUser)
+    await signup(newUser)
       .then((res) => {
         console.log("Signup Successful ==>> ", res);
       })
@@ -59,12 +52,10 @@ export default class SignupForm extends Component {
         console.log("Signup Failed ==>> ", err.message);
       });
     delete newUser["role"];
-    login(newUser)
+    await login(newUser)
       .then((res) => {
         console.log("Login Successful ==>> ", res);
-        localStorage.setItem("token", res.data.payload);
-        localStorage.setItem("role", res.data.role);
-        this.props.history.push(`/dashboard/${res.data.id}`);
+        this.props.history.push(`/dashboard/${res.data.role}/${res.data.id}`);
       })
       .catch((err) => {
         alert(`Failed to Log In ==>> ${err.message}`);
