@@ -1,6 +1,8 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 export default function Dashboard() {
+  const { role, id } = useParams();
   // useSelector to pull user details from reducer
   // useSelector to pull user's classes list from reducer
   // useSelector to pull available classes list from reducer
