@@ -3,7 +3,8 @@ import axios from "axios";
 export const signup = (user) => {
   return axios
     .post(
-      "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/register",
+      // "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/register",
+      "http://localhost:5000/api/auth/register"
       user
     )
     .then((res) => {
