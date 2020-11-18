@@ -6,7 +6,11 @@ import SigninForm from "./components/SigninForm";
 import SignupForm from "./components/SignupForm";
 import PrivateRoute from "./components/PrivateRoute";
 import CustomerDashboard from "./components/CustomerDashboard";
+
+import './styles/DashboardCSS.css'
+
 import InstructorDashboard from "./components/InstructorDashboard";
+
 
 function App() {
   const [role, setRole] = useState("");
