@@ -6,6 +6,7 @@ import SignupForm from "./components/SignupForm";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import CustomerDashboard from "./components/CustomerDashboard";
+import './styles/DashboardCSS.css'
 
 function App() {
   return (
