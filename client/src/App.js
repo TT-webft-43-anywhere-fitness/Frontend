@@ -5,9 +5,12 @@ import Header from "./components/Header";
 import SigninForm from "./components/SigninForm";
 import SignupForm from "./components/SignupForm";
 import PrivateRoute from "./components/PrivateRoute";
+
 import Dashboard from "./components/Dashboard";
-// import CustomerDashboard from "./components/CustomerDashboard";
-// import InstructorDashboard from "./components/InstructorDashboard";
+import CustomerDashboard from "./components/CustomerDashboard";
+import InstructorDashboard from "./components/InstructorDashboard";
+
+import './styles/DashboardCSS.css'
 
 function App() {
   return (
