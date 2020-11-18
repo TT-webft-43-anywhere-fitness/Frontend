@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "..utils/axiosWithAuth";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 export const GET_CLASSES = "GET_CLASSES";
 export const IS_LOADING = "IS_LOADING";

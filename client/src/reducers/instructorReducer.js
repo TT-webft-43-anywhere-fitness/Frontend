@@ -14,7 +14,7 @@ const initialState = {
   isLoading: false,
 };
 
-export default (state = initialState, action) => {
+const instructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_CLASS:
       return {
@@ -23,16 +23,16 @@ export default (state = initialState, action) => {
       };
     case DELETE_CLASS:
       return state;
-    case FOUND_CLASS:
+    case FOUND_CLASSES:
       return {
         ...state,
         isLoading: false,
-        classes: res.data,
+        classes: action.payload,
       };
     case EDIT_CLASS:
       return {
         ...state,
-        class: res.data,
+        class: action.payload,
       };
     case IS_LOADING:
       return {
@@ -43,9 +43,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: res.data,
+        error: action.payload,
       };
     default:
       return state;
   }
 };
+
+export default instructorReducer;

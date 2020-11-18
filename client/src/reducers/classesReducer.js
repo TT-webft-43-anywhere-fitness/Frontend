@@ -21,7 +21,7 @@ const initialState = {
   isDeleting: false,
   error: "",
 };
-export const classesReducer = (state = initialState, action) => {
+const classesReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CLASSES_START:
       return {
@@ -101,3 +101,5 @@ export const classesReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default classesReducer;

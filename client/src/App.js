@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Header from "./components/Header";
 import SigninForm from "./components/SigninForm";
@@ -10,9 +11,10 @@ import Dashboard from "./components/Dashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
 import InstructorDashboard from "./components/InstructorDashboard";
 
-import './styles/DashboardCSS.css'
+import "./styles/DashboardCSS.css";
 
 function App() {
+  const state = useSelector((state) => state);
   return (
     <div>
       App

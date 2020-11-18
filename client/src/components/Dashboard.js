@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+const initialState = {
+  selector: "",
+  search: "",
+};
 
 export default function Dashboard() {
   const { role, id } = useParams();
   // useSelector to pull user details from reducer
   // useSelector to pull user's classes list from reducer
   // useSelector to pull available classes list from reducer
+  const customer = useSelector((state) => state.customer);
+  const instructor = useSelector((state) => state.instructor);
   // useState for search form
+  const [formValues, setFormValues] = useState(initialState);
 
   // fetchUserClasses fn to make api call and send resp as a payload
   //// to reducer
