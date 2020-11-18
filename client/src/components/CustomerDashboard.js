@@ -33,19 +33,61 @@ export default function CustomerDashboard() {
 
   return (
     <div>
-      <div className="classDetails">
+      <div className="classInfo">
         <div className="titleBar">
-          <h3>
-            {` ${month}/ ${date}/ ${year} `}
-          </h3>
-          <h3>
-            Description
-          </h3>
+          <h3>{` ${month}/${date}/${year} `}</h3>
+          <h3>Description</h3>
+          <h3>Enrolled</h3>
+          <h3>Intensity</h3>
+          <h3>Location</h3>
+        </div>
+        <div className="border">
+          {classes && classes.map((element) => (
+             <div className="classDetails">
+              <h3>
+                {`${element.start_time} - ${element.end_time}`}   
+              </h3>
+              <h3>
+                {element.class_name}
+              </h3>
+              <h3>
+                {`${element.enrolled} of ${element.max_size}`}
+              </h3>
+              <h3>
+                {element.intensity}
+              </h3>
+              <h3>
+                {element.location}
+              </h3>
+            </div> 
+          ))}
         </div>
       </div> 
     </div>
   )
 }
+
+
+{/* <div className="classDetails">
+              <h3>
+                {`${element.start_time} - ${element.end_time}`}   
+              </h3>
+              <h3>
+                {element.class_name}
+              </h3>
+              <h3>
+                {`${element.enrolled} of ${element.max_size}`}
+              </h3>
+              <h3>
+                {element.intensity}
+              </h3>
+              <h3>
+                {element.location}
+              </h3>
+            </div> */}
+
+
+
 
 
 // <br /><br /><br />

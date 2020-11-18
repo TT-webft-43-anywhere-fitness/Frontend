@@ -1,4 +1,32 @@
+.titleBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /* justify-content: space-around; */
+  margin: auto;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.titleBar h3 {
+  width: 20%;
+}
+
+
 .classDetails {
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /* justify-content: space-around; */
+  margin: auto;
   
+  text-align: center;
+}
+
+.classDetails h3{
+  width: 20%;
+}
+
+.border {
+  border: 1px solid black;
 }
