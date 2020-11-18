@@ -9,12 +9,6 @@ import CustomerDashboard from "./components/CustomerDashboard";
 import InstructorDashboard from "./components/InstructorDashboard";
 
 function App() {
-  const [role, setRole] = useState("");
-
-  useEffect(() => {
-    localStorage.getItem("role");
-  }, []);
-
   return (
     <div>
       App
@@ -22,8 +16,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={SigninForm} />
         <Route path="/signup" component={SignupForm} />
-        <PrivateRoute
-          path="/dashboard/:id"
+        {/* <PrivateRoute
+          path="/dashboard/:role/:id"
           render={(props) => {
             if (localStorage.getItem("role") === 2) {
               return <InstructorDashboard />;
@@ -33,9 +27,9 @@ function App() {
               return <Redirect to="/" />;
             }
           }}
-        />
-        <PrivateRoute path="/instructor/:id" component={InstructorDashboard} />
-        <PrivateRoute path="/customer/:id" component={CustomerDashboard} />
+        /> */}
+        <PrivateRoute path="/dashboard/1/:id" component={InstructorDashboard} />
+        <PrivateRoute path="/dashboard/2/:id" component={CustomerDashboard} />
         <Route path="/corie" component={SignupForm} />
         <Route path="/george" component={SigninForm} />
       </Switch>
