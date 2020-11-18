@@ -18,6 +18,7 @@ export const getClasses = () => {
       });
   };
 };
+
 export const isAttending = (userID, classID) => {
   return (dispatch) => {
     axiosWithAuth()

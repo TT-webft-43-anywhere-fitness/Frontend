@@ -1,33 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import customerActions from "../actions/customerActions";
+import instructorActions from "../actions/instructorActions";
 
 const initialState = {
   selector: "",
   search: "",
 };
-
+// enroll/unenroll user_id in endpoint path, class_id in bodyobj
 export default function Dashboard() {
-  const { role, id } = useParams();
+  const { id } = useParams();
   // useSelector to pull user details from reducer
   // useSelector to pull user's classes list from reducer
   // useSelector to pull available classes list from reducer
   const customer = useSelector((state) => state.customer);
   const instructor = useSelector((state) => state.instructor);
+  const dispatch = useDispatch();
   // useState for search form
   const [formValues, setFormValues] = useState(initialState);
   const [user, setUser] = useState({});
 
-  // fetchUserClasses fn to make api call and send resp as a payload
-  //// to reducer
-  useEffect(() => {}, []);
+  // fetchUserInfo fn to make api call and send resp as a payload to reducer
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`/api/users/${id}`)
+      .then((res) => {
+        console.log(res);
+        setUser(res.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    dispatch(customerActions.getClasses());
+  }, []);
 
   // fetchAvailableClasses fn to make api call and send resp as a payload
   //// to reducer
-
-  // fetchUserInfo fn to make api call and send resp as a payload to reducer
 
   // clickListener for delete api call for instructor classes
 
