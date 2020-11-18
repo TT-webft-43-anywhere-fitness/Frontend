@@ -38,7 +38,7 @@ export default class SignupForm extends Component {
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     const newUser = {
       ...this.state.formValues,
@@ -51,7 +51,7 @@ export default class SignupForm extends Component {
     //   .catch((err) => {
     //     console.log(err);
     //   });
-    signup(newUser)
+    await signup(newUser)
       .then((res) => {
         console.log("Signup Successful ==>> ", res);
       })
@@ -59,7 +59,7 @@ export default class SignupForm extends Component {
         console.log("Signup Failed ==>> ", err.message);
       });
     delete newUser["role"];
-    login(newUser)
+    await login(newUser)
       .then((res) => {
         console.log("Login Successful ==>> ", res);
         localStorage.setItem("token", res.data.payload);
