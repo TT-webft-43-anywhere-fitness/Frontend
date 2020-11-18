@@ -1,9 +1,9 @@
-import axios from "axios";
+import Axios from "axios";
 
 export const axiosWithAuth = () => {
   const token = localStorage.getItem("token");
 
-  return axios.create({
+  return Axios.create({
     baseURL:
       "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/",
     // "https://cors-anywhere.herokuapp.com/http://localhost:5000/",

@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "..utils/axiosWithAuth";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 export const ADD_CLASS = "ADD_CLASS"; //POST
 export const DELETE_CLASS = "DELETE_CLASS"; //DELETE
@@ -58,4 +58,11 @@ export const findingClasses = (instID) => {
         dispatch({ type: FAILURE, payload: err.message });
       });
   };
+};
+
+export default {
+  findingClasses,
+  deleteClass,
+  editClass,
+  addClass,
 };

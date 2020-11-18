@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+
+const initialState = {
+  selector: "",
+  search: "",
+};
 
 export default function Dashboard() {
   const { role, id } = useParams();
   // useSelector to pull user details from reducer
   // useSelector to pull user's classes list from reducer
   // useSelector to pull available classes list from reducer
+  const customer = useSelector((state) => state.customer);
+  const instructor = useSelector((state) => state.instructor);
   // useState for search form
+  const [formValues, setFormValues] = useState(initialState);
+  const [user, setUser] = useState({});
 
   // fetchUserClasses fn to make api call and send resp as a payload
   //// to reducer
+  useEffect(() => {}, []);
 
   // fetchAvailableClasses fn to make api call and send resp as a payload
   //// to reducer

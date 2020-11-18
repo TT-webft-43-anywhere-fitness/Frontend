@@ -10,7 +10,7 @@ const initialState = {
   error: "",
 };
 
-export const attendeesReducer = (state = initialState, action) => {
+const attendeesReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_ATTENDEES_START:
       return {
@@ -33,3 +33,5 @@ export const attendeesReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default attendeesReducer;

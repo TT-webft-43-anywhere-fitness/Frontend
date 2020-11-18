@@ -12,7 +12,7 @@ const initialState = {
   error: "",
 };
 
-export default (state = initialState, action) => {
+const customerReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CLASSES:
       return {
@@ -39,3 +39,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default customerReducer;
