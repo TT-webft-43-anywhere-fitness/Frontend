@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialState = {
   selector: "",
@@ -16,9 +18,11 @@ export default function Dashboard() {
   const instructor = useSelector((state) => state.instructor);
   // useState for search form
   const [formValues, setFormValues] = useState(initialState);
+  const [user, setUser] = useState({});
 
   // fetchUserClasses fn to make api call and send resp as a payload
   //// to reducer
+  useEffect(() => {}, []);
 
   // fetchAvailableClasses fn to make api call and send resp as a payload
   //// to reducer

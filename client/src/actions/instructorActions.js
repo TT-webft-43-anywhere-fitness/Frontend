@@ -59,3 +59,10 @@ export const findingClasses = (instID) => {
       });
   };
 };
+
+export default {
+  findingClasses,
+  deleteClass,
+  editClass,
+  addClass,
+};

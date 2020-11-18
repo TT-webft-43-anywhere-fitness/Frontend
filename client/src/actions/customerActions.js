@@ -30,3 +30,8 @@ export const isAttending = (userID, classID) => {
       });
   };
 };
+
+export default {
+  getClasses,
+  isAttending,
+};
