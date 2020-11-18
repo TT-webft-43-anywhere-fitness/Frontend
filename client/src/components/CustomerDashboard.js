@@ -43,7 +43,7 @@ export default function CustomerDashboard() {
         </div>
         <div className="border">
           {classes && classes.map((element) => (
-             <div className="classDetails">
+            <div className="classDetails">
               <h3>
                 {`${element.start_time} - ${element.end_time}`}   
               </h3>
