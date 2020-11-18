@@ -7,10 +7,10 @@ export const IS_LOADING = 'IS_LOADING'
 export const EDIT_CLASS = 'EDIT_CLASS' //PUT
 export const FAILURE = 'FAILURE'  //ERROR CATCH
 
-export const editClass = (item) => {
+export const editClass = (item, id) => {
     return (dispatch) => {
         axiosWithAuth()
-            .put('', item)
+            .put('/api/classes', id, item)
             .then(res => {
                 dispatch({ type: EDIT_CLASS, payload: res.data })
             })
@@ -23,7 +23,7 @@ export const editClass = (item) => {
 export const addClass = (item) => {
     return (dispatch) => {
         axiosWithAuth()
-            .post('', item) //add api endpoint
+            .post('/api/classes', item) 
             .then(res => {
                 dispatch({ type: ADD_CLASS, payload: res.data })
             })
@@ -33,10 +33,10 @@ export const addClass = (item) => {
     }
 }
 
-export const deleteClass = () => {
+export const deleteClass = (id) => {
     return (dispatch) => {
         axiosWithAuth()
-            .delete('') //enter api endpoint for delete
+            .delete('/api/classes', id) 
             .then(res => {
                 dispatch({ type: DELETE_CLASS, payload: res.data })
             })
@@ -46,11 +46,11 @@ export const deleteClass = () => {
     }
 }
 
-export const findingClasses = () => {
+export const findingClasses = (instID) => {
     return (dispatch) => {
         dispatch(({ type: IS_LOADING }))
         axiosWithAuth()
-            .get('')  //add api endpoint
+            .get(`/api/users/${instID}/classes`) 
             .then(res => {
                 dispatch({ type: FOUND_CLASSES, payload: res.data })
             })

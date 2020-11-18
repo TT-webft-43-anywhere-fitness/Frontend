@@ -1,10 +1,9 @@
 import axios from "axios";
 
-export const login = (user) => {
-  console.log(user);
+export const signup = (user) => {
   return axios
     .post(
-      "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/login",
+      "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/register",
       user
     )
     .then((res) => {

@@ -9,7 +9,7 @@ export const getClasses = () => {
     return (dispatch) => {
         dispatch(({ type: IS_LOADING }))
         axiosWithAuth()
-            .get('')  //add api endpoint
+            .get('/api/classes')  
             .then(res => {
                 dispatch({ type: GET_CLASSES, payload: res.data })
             })
@@ -18,10 +18,10 @@ export const getClasses = () => {
             })
     }
 }
-export const isAttending = (booleanAnswer) => {
+export const isAttending = (userID, classID) => {
     return (dispatch) => {
         axiosWithAuth()
-            .put('', booleanAnswer)
+            .post('', { userID, classID })
             .then(res => {
                 dispatch({ type: IS_ATTENDING, payload: res.data })
             })

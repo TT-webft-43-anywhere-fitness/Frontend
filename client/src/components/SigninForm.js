@@ -31,9 +31,10 @@ export default class SigninForm extends Component {
     e.preventDefault();
     login(this.state.formValues)
       .then((res) => {
-        console.log(this);
+        console.log("Login Successful ==>> ", res);
         localStorage.setItem("token", res.data.payload);
-        // this.context.history.push("/dashboard");
+        localStorage.setItem("role", res.data.role);
+        this.props.history.push(`/dashboard/${res.data.id}`);
       })
       .catch((err) => {
         alert(`Failed to Log In ==>> ${err.message}`);
