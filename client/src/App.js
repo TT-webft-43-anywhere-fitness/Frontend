@@ -16,20 +16,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={SigninForm} />
         <Route path="/signup" component={SignupForm} />
-        {/* <PrivateRoute
-          path="/dashboard/:role/:id"
-          render={(props) => {
-            if (localStorage.getItem("role") === 2) {
-              return <InstructorDashboard />;
-            } else if (localStorage.getItem("role") === 1) {
-              return <CustomerDashboard />;
-            } else {
-              return <Redirect to="/" />;
-            }
-          }}
-        /> */}
-        <PrivateRoute path="/dashboard/1/:id" component={InstructorDashboard} />
-        <PrivateRoute path="/dashboard/2/:id" component={CustomerDashboard} />
+        <PrivateRoute path="/dashboard/1/:id" component={CustomerDashboard} />
+        <PrivateRoute path="/dashboard/2/:id" component={InstructorDashboard} />
         <Route path="/corie" component={SignupForm} />
         <Route path="/george" component={SigninForm} />
       </Switch>

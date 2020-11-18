@@ -44,13 +44,6 @@ export default class SignupForm extends Component {
       ...this.state.formValues,
       role: this.state.formValues.role ? 2 : 1,
     };
-    // Axios.post("https://covid-bod.herokuapp.com/api/auth/register", newUser)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
     await signup(newUser)
       .then((res) => {
         console.log("Signup Successful ==>> ", res);
@@ -62,8 +55,6 @@ export default class SignupForm extends Component {
     await login(newUser)
       .then((res) => {
         console.log("Login Successful ==>> ", res);
-        localStorage.setItem("token", res.data.payload);
-        localStorage.setItem("role", res.data.role);
         this.props.history.push(`/dashboard/${res.data.role}/${res.data.id}`);
       })
       .catch((err) => {
