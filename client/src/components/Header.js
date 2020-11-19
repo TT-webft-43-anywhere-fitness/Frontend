@@ -8,17 +8,17 @@ export default function Header() {
     <div>
       <div></div>
       <ul>
+        <Link to="/">Home</Link>
+        {localStorage.getItem("id") ? (
+          <Link to={`/dashboard/${localStorage.getItem("id")}`}>Dashboard</Link>
+        ) : null}
         <Link to="/signup">Sign Up</Link>
-        {localStorage.getItem("token") ? (
-          <Link to={`/dashboard/${id}`}>Home</Link>
-        ) : (
-          <Link to="/">Home</Link>
-        )}
         {localStorage.getItem("token") ? (
           <Link
             to="/"
             onClick={() => {
               localStorage.removeItem("token");
+              localStorage.removeItem("id");
             }}
           >
             Sign Out

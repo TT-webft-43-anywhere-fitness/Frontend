@@ -81,6 +81,10 @@ export default function Dashboard() {
     setClasses(customer.classes);
   }, [customer.isLoading]);
 
+  // useEffect(() => {
+  //   setClasses(customer.classes);
+  // }, []);
+
   useEffect(() => {
     setClasses(instructor.classes);
   });
@@ -165,28 +169,12 @@ export default function Dashboard() {
 
   return (
     <div>
-      {/* need user id */}
-      {/* display user details */}
-      {/* conditionally render add/edit classform if optionType is
-        instructor */}
-      {/* needs an element to click and delete class which will
-          have an onClick handler to run a delete req to api with the
-          id of the class(this might need to be in Class component) */}
-      {/* map over classes and render Class component for each one */}
-      {/* needs a button for editing */}
-      {/* conditionally render list of classes if optionType is
-        customer */}
-      {/* map over classes and render Class component for each one */}
-      {/* needs an input element for search input with onChange handler;
-          this couold be a separate search component */}
-      {/* map over availableClasses and render Class component for each one */}
       {/* needs to be an element with click listener that sends put request to api
             to cancel isAttending(might conflate this and below elements to one toggle) */}
       {/* also need an element with click listener that sends put request to api
             to confirm isAttending(might conflate this and above elements to one toggle) */}
       {/* also might need a clear search that sends action to reducer to refetch
           classlist */}
-      Dashboard
       {/* addClass form */}
       {user.role == 2 && instructor.classes.length > 0 && (
         <div key="instructor-classes" className="classInfo">
@@ -267,18 +255,6 @@ export default function Dashboard() {
           <button>Add Class</button>
         </form>
       )}
-      {/* editClass Form */}
-      {/* {user.role === 2 && isEditing &&
-        instructor.classes.map((cls) => (
-          <EditingClass
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-            cls={cls}
-            handleChange={handleChange}
-            editingValues={editingValues}
-          />
-        ))} */}
-      {/* Search form */}
       <form key="customer-search-form" onSubmit={handleSubmit}>
         <select
           name="category"
@@ -300,7 +276,6 @@ export default function Dashboard() {
         />
         <button>Submit</button>
       </form>
-      {/* list of all available */}
       <h2>All Available Classes</h2>
       {classes.length > 0 && (
         <div key="all-available-classes" className="classInfo">
@@ -312,7 +287,18 @@ export default function Dashboard() {
             <h3>Location</h3>
           </div>
           {classes.map((cls, idx) => (
-            <Class key={`${idx}a`} cls={cls} />
+            <>
+              <Class key={`${idx}a`} cls={cls} />
+              <button
+                onClick={() => {
+                  dispatch(
+                    customerActions.isAttending({ userID: id, classID: cls.id })
+                  );
+                }}
+              >
+                Enroll
+              </button>
+            </>
           ))}
         </div>
       )}

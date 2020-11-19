@@ -12,7 +12,6 @@ import "./styles/DashboardCSS.css";
 function App() {
   return (
     <div>
-      App
       <Route component={Header} />
       <Switch>
         <Route exact path="/" component={SigninForm} />
@@ -21,7 +20,6 @@ function App() {
         <Route path="/corie" component={SignupForm} />
         <Route path="/george" component={SigninForm} />
       </Switch>
-      {/* <CustomerDashboard /> */}
     </div>
   );
 }
