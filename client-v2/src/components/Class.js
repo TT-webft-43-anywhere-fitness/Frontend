@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { deleteClass } from "../store/actions/classesActions";
 
-export default function Class({ cls, mutable }) {
+export default function Class({ cls, mutable, setIsEditing }) {
   const dispatch = useDispatch();
 
   return (
