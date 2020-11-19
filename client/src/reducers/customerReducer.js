@@ -33,7 +33,7 @@ const customerReducer = (state = initialState, action) => {
     case IS_ATTENDING:
       return {
         ...state,
-        isAttending: res.data,
+        isAttending: action.payload,
       };
     default:
       return state;

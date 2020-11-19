@@ -7,7 +7,7 @@ export const IS_LOADING = "IS_LOADING";
 export const EDIT_CLASS = "EDIT_CLASS"; //PUT
 export const FAILURE = "FAILURE"; //ERROR CATCH
 
-export const editClass = (item, id) => {
+export const editClass = (id, item) => {
   return (dispatch) => {
     axiosWithAuth()
       .put("/api/classes", id, item)
