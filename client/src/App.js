@@ -9,12 +9,10 @@ import PrivateRoute from "./components/PrivateRoute";
 
 import Dashboard from "./components/Dashboard";
 import CustomerDashboard from "./components/CustomerDashboard";
-import InstructorDashboard from "./components/InstructorDashboard";
 
 import "./styles/DashboardCSS.css";
 
 function App() {
-  const state = useSelector((state) => state);
   return (
     <div>
       App
@@ -23,7 +21,6 @@ function App() {
         <Route exact path="/" component={SigninForm} />
         <Route path="/signup" component={SignupForm} />
         <PrivateRoute path="/dashboard/:id" component={Dashboard} />
-        {/* <PrivateRoute path="/dashboard/2/:id" component={InstructorDashboard} /> */}
         <Route path="/corie" component={SignupForm} />
         <Route path="/george" component={SigninForm} />
       </Switch>
