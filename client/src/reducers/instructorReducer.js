@@ -22,7 +22,12 @@ const instructorReducer = (state = initialState, action) => {
         classes: state.classes.concat(action.payload),
       };
     case DELETE_CLASS:
-      return state;
+      return {
+        ...state,
+        classes: state.classes.filter(
+          (cls) => Number(cls.id) !== Number(action.payload)
+        ),
+      };
     case FOUND_CLASSES:
       return {
         ...state,
@@ -30,9 +35,16 @@ const instructorReducer = (state = initialState, action) => {
         classes: action.payload,
       };
     case EDIT_CLASS:
+      console.log(action.payload);
       return {
         ...state,
         class: action.payload,
+        classes: state.classes.map((cls) => {
+          if (cls.id == action.payload) {
+            return action.payload;
+          }
+          return cls;
+        }),
       };
     case IS_LOADING:
       return {

@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header";
 import SigninForm from "./components/SigninForm";
@@ -8,7 +6,6 @@ import SignupForm from "./components/SignupForm";
 import PrivateRoute from "./components/PrivateRoute";
 
 import Dashboard from "./components/Dashboard";
-import CustomerDashboard from "./components/CustomerDashboard";
 
 import "./styles/DashboardCSS.css";
 
