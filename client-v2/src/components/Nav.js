@@ -8,6 +8,16 @@ export default function Nav() {
       <NavLink to="/">Sign In</NavLink>
       <NavLink to="/signup">Sign Up</NavLink>
       <NavLink to="/dashboard">Dashboard</NavLink>
+      {localStorage.getItem("token") && (
+        <NavLink
+          to="/"
+          onClick={() => {
+            localStorage.removeItem("token");
+          }}
+        >
+          Sign Out
+        </NavLink>
+      )}
     </nav>
   );
 }

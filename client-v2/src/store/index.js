@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import classesReducer from "./reducers/classesReducer";
 import attendeesReducer from "./reducers/attendeesReducer";
+import userReducer from "./reducers/userReducer";
 
 export const middlewares = [thunk, logger];
 
@@ -13,6 +14,7 @@ export const createStoreWithMiddlewares = applyMiddleware(...middlewares)(
 export const rootReducer = combineReducers({
   classes: classesReducer,
   attendees: attendeesReducer,
+  user: userReducer,
 });
 
 const store = createStoreWithMiddlewares(rootReducer);

@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Axios from "axios";
+import { userActionTypes } from "../constants/index";
 
 export function useForm(initialVals, signup = false) {
   const [formVals, setFormVals] = useState(initialVals);
   const { push } = useHistory();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +38,7 @@ export function useForm(initialVals, signup = false) {
           )
         );
     }
+    dispatch({ type: userActionTypes.FETCH_USER_START });
     Axios.post(
       "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/login",
       {
@@ -45,6 +49,11 @@ export function useForm(initialVals, signup = false) {
       .then((res) => {
         console.log("Login Successful ==>> ", res);
         localStorage.setItem("token", res.data.token);
+        dispatch({
+          type: userActionTypes.FETCH_USER_SUCCESS,
+          payload: res.data,
+        });
+        push("/dashboard");
       })
       .catch((err) => {
         console.log(
@@ -53,9 +62,12 @@ export function useForm(initialVals, signup = false) {
           " Error Type ==>> ",
           err.type
         );
+        dispatch({
+          type: userActionTypes.FETCH_USER_FAILURE,
+          payload: err.message,
+        });
       });
     setFormVals(initialVals);
-    push("/dashboard");
   };
   return [formVals, setFormVals, handleChange, handleSubmit];
 }
