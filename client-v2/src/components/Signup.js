@@ -8,12 +8,13 @@ import App from "../App";
 const initialFormValues = {
   username: "",
   password: "",
-  role: "",
+  role: false,
 };
 
 export default function Signup() {
   const [formVals, setFormVals, handleChange, handleSubmit] = useForm(
-    initialFormValues
+    initialFormValues,
+    true
   );
 
   const handleRoleChange = (checked) => {

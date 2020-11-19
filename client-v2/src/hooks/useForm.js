@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 
-export function useForm(initialVals) {
+export function useForm(initialVals, signup = false) {
   const [formVals, setFormVals] = useState(initialVals);
+  const { push } = useHistory();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,16 +16,32 @@ export function useForm(initialVals) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let newUser;
-    if (formVals.hasOwnProperty("role")) {
-      newUser = {
+    if (signup) {
+      const newUser = {
         ...formVals,
         role: formVals.role ? 2 : 1,
       };
-    } else {
-      newUser = formVals;
+      Axios.post(
+        "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/register",
+        newUser
+      )
+        .then((res) => console.log("Signup Successful ==>> ", res))
+        .catch((err) =>
+          console.log(
+            "Signup Failed ==>> ",
+            err.message,
+            "Error Type ==>> ",
+            err.type
+          )
+        );
     }
-    Axios.post("https://covid-bod.herokuapp.com/api/auth/login", newUser)
+    Axios.post(
+      "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/login",
+      {
+        username: formVals.username,
+        password: formVals.password,
+      }
+    )
       .then((res) => {
         console.log("Login Successful ==>> ", res);
         localStorage.setItem("token", res.data.token);
@@ -37,6 +55,7 @@ export function useForm(initialVals) {
         );
       });
     setFormVals(initialVals);
+    push("/dashboard");
   };
   return [formVals, setFormVals, handleChange, handleSubmit];
 }
