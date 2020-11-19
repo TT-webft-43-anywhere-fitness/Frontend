@@ -29,7 +29,7 @@ export const attendeesActionTypes = {
   ENROLL_IN_CLASS_FAILURE,
 };
 
-const classesActionTypes = {
+const classActionTypes = {
   FETCH_CLASSES_START,
   FETCH_CLASSES_SUCCESS,
   FETCH_CLASSES_FAILURE,
