@@ -21,6 +21,7 @@ const initialState = {
   isDeleting: false,
   error: "",
 };
+
 const classesReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CLASSES_START:
