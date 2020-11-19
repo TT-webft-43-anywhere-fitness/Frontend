@@ -1,10 +1,12 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { deleteClass } from "../store/actions/classesActions";
 
 export default function Class({ cls, mutable }) {
   const dispatch = useDispatch();
+
   return (
     <div className="classDetails">
       {mutable && (

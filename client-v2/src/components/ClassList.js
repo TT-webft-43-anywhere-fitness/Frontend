@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getClasses } from "../store/actions/classesActions";
@@ -7,7 +8,9 @@ import Class from "./Class";
 
 export default function ClassList() {
   const classes = useSelector((state) => state.classes);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const { role } = useParams;
 
   let today = new Date();
   let month = today.getMonth();
@@ -15,7 +18,7 @@ export default function ClassList() {
   let date = today.getDate();
 
   useEffect(() => {
-    dispatch(getClasses());
+    getClasses();
   }, []);
 
   return (
@@ -27,7 +30,10 @@ export default function ClassList() {
         <h3>Intensity</h3>
         <h3>Location</h3>
       </div>
-      {classes.length > 0 && classes.map((cls) => <Class cls={cls} />)}
+      {console.log(user)}
+      {role == 2
+        ? classes.classes.map((cls) => <Class cls={cls} mutable={true} />)
+        : classes.classes.map((cls) => <Class key={cls.id} cls={cls} />)}
     </div>
   );
 }

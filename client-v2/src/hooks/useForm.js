@@ -49,6 +49,7 @@ export function useForm(initialVals, signup = false) {
       .then((res) => {
         console.log("Login Successful ==>> ", res);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data));
         dispatch({
           type: userActionTypes.FETCH_USER_SUCCESS,
           payload: res.data,

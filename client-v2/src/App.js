@@ -17,7 +17,7 @@ function App() {
         <Route path="/signup">
           <Signup />
         </Route>
-        <Route path="/">
+        <Route exact path="/">
           <Signin />
         </Route>
       </Switch>
