@@ -25,8 +25,8 @@ export function useForm(initialVals, signup = false) {
         role: formVals.role ? 2 : 1,
       };
       Axios.post(
-        // "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/register",
-        "https://covid-bod.herokuapp.com/api/auth/register",
+        "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/register",
+        // "https://covid-bod.herokuapp.com/api/auth/register",
         newUser
       )
         .then((res) => console.log("Signup Successful ==>> ", res))
@@ -41,8 +41,8 @@ export function useForm(initialVals, signup = false) {
     }
     dispatch({ type: userActionTypes.FETCH_USER_START });
     Axios.post(
-      // "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/login",
-      "https://covid-bod.herokuapp.com/api/auth/login",
+      "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/login",
+      // "https://covid-bod.herokuapp.com/api/auth/login",
       {
         username: formVals.username,
         password: formVals.password,

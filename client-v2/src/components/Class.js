@@ -23,6 +23,15 @@ export default function Class({ cls, mutable }) {
       <h3>{`${cls.enrolled} of ${cls.max_size}`}</h3>
       <h3>{cls.intensity}</h3>
       <h3>{cls.location}</h3>
+      {mutable && (
+        <button
+          onClick={() => {
+            setIsEditing(true);
+          }}
+        >
+          Edit
+        </button>
+      )}
     </div>
   );
 }
