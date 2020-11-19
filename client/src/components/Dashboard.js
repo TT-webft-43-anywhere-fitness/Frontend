@@ -27,6 +27,8 @@ const initialAddValues = {
 };
 
 const initialEditingValues = {
+  id: "",
+  instructor_id: "",
   class_name: "",
   type: "",
   start_time: "",
@@ -52,6 +54,7 @@ export default function Dashboard() {
   const [addValues, setAddValues] = useState(initialAddValues);
   const [user, setUser] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   let today = new Date();
   let month = today.getMonth();
@@ -72,11 +75,15 @@ export default function Dashboard() {
         setUser(res.data);
       });
     getClasses();
-  }, []);
+  }, [isEditing, isDeleting]);
 
   useEffect(() => {
     setClasses(customer.classes);
   }, [customer.isLoading]);
+
+  useEffect(() => {
+    setClasses(instructor.classes);
+  });
 
   const fetchClassEdit = (id) => {
     axiosWithAuth()
@@ -136,6 +143,14 @@ export default function Dashboard() {
     });
   };
 
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditingValues({
+      ...editingValues,
+      [name]: value,
+    });
+  };
+
   const handleAdd = (e) => {
     e.preventDefault();
     const newAdd = {
@@ -174,7 +189,7 @@ export default function Dashboard() {
       Dashboard
       {/* addClass form */}
       {user.role == 2 && instructor.classes.length > 0 && (
-        <div className="classInfo">
+        <div key="instructor-classes" className="classInfo">
           <h2>{user.username}'s Classes</h2>
           <div className="titleBar">
             <h3>{` ${month}/${date}/${year} `}</h3>
@@ -184,12 +199,22 @@ export default function Dashboard() {
             <h3>Location</h3>
           </div>
           {instructor.classes.map((cls) => (
-            <Class cls={cls} mutable={true} />
+            <EditingClass
+              key={cls.id}
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
+              cls={cls}
+              handleChange={handleEditChange}
+              editingValues={editingValues}
+              setEditingValues={setEditingValues}
+              isDeleting={isDeleting}
+              setIsDeleting={setIsDeleting}
+            />
           ))}
         </div>
       )}
-      {user.role === 2 && (
-        <form onSubmit={handleAdd}>
+      {user.role === 2 && !isEditing && (
+        <form key="instructor-add-form" onSubmit={handleAdd}>
           <label htmlFor="class_name">Name</label>
           <input
             type="text"
@@ -243,7 +268,7 @@ export default function Dashboard() {
         </form>
       )}
       {/* editClass Form */}
-      {/* {user.role === 2 &&
+      {/* {user.role === 2 && isEditing &&
         instructor.classes.map((cls) => (
           <EditingClass
             isEditing={isEditing}
@@ -254,7 +279,7 @@ export default function Dashboard() {
           />
         ))} */}
       {/* Search form */}
-      <form onSubmit={handleSubmit}>
+      <form key="customer-search-form" onSubmit={handleSubmit}>
         <select
           name="category"
           value={formValues.category}
@@ -278,7 +303,7 @@ export default function Dashboard() {
       {/* list of all available */}
       <h2>All Available Classes</h2>
       {classes.length > 0 && (
-        <div className="classInfo">
+        <div key="all-available-classes" className="classInfo">
           <div className="titleBar">
             <h3>{` ${month}/${date}/${year} `}</h3>
             <h3>Description</h3>
@@ -286,8 +311,8 @@ export default function Dashboard() {
             <h3>Intensity</h3>
             <h3>Location</h3>
           </div>
-          {classes.map((cls) => (
-            <Class cls={cls} />
+          {classes.map((cls, idx) => (
+            <Class key={`${idx}a`} cls={cls} />
           ))}
         </div>
       )}

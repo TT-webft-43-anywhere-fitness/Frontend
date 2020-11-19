@@ -10,7 +10,7 @@ export const FAILURE = "FAILURE"; //ERROR CATCH
 export const editClass = (id, item) => {
   return (dispatch) => {
     axiosWithAuth()
-      .put("/api/classes", id, item)
+      .put(`/api/classes/${id}`, item)
       .then((res) => {
         dispatch({ type: EDIT_CLASS, payload: res.data });
       })
@@ -36,7 +36,7 @@ export const addClass = (item) => {
 export const deleteClass = (id) => {
   return (dispatch) => {
     axiosWithAuth()
-      .delete("/api/classes", id)
+      .delete(`/api/classes/${id}`)
       .then((res) => {
         dispatch({ type: DELETE_CLASS, payload: res.data });
       })
