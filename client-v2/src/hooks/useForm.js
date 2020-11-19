@@ -9,6 +9,14 @@ export function useForm(initialVals, signup = false) {
   const { push } = useHistory();
   const dispatch = useDispatch();
 
+  const AxiosWithHeaders = () => {
+    return Axios.create({
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormVals({
@@ -24,7 +32,7 @@ export function useForm(initialVals, signup = false) {
         ...formVals,
         role: formVals.role ? 2 : 1,
       };
-      Axios.post(
+      AxiosWithHeaders.post(
         "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/register",
         // "https://covid-bod.herokuapp.com/api/auth/register",
         newUser
@@ -40,7 +48,7 @@ export function useForm(initialVals, signup = false) {
         );
     }
     dispatch({ type: userActionTypes.FETCH_USER_START });
-    Axios.post(
+    AxiosWithHeaders.post(
       "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/login",
       // "https://covid-bod.herokuapp.com/api/auth/login",
       {

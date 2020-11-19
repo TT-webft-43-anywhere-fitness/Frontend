@@ -7,6 +7,7 @@ function AxiosWithAuth() {
     // "https://covid-bod.herokuapp.com/",
     headers: {
       Authorization: localStorage.getItem("token"),
+      "Access-Control-Allow-Origin": "*",
     },
   });
 }
