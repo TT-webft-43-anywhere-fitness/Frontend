@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { getTimeDiff } from "../utils/getTimeDiff";
 import customerActions from "../actions/customerActions";
 import instructorActions from "../actions/instructorActions";
 
@@ -59,15 +60,23 @@ export default function Dashboard() {
 
   // fetchUserInfo fn to make api call and send resp as a payload to reducer
   useEffect(() => {
+    const getClasses = async () => {
+      await dispatch(customerActions.getClasses());
+      await dispatch(instructorActions.findingClasses(id));
+    };
+
     axiosWithAuth()
       .get(`/api/users/${id}`)
       .then((res) => {
         console.log(res);
         setUser(res.data);
       });
-    dispatch(customerActions.getClasses());
-    dispatch(instructorActions.findingClasses(user.id));
+    getClasses();
   }, []);
+
+  useEffect(() => {
+    setClasses(customer.classes);
+  }, [customer.isLoading]);
 
   const fetchClassEdit = (id) => {
     axiosWithAuth()
@@ -92,13 +101,23 @@ export default function Dashboard() {
   // changeHandler fn for search
   const handleSubmit = (e) => {
     e.preventDefault();
-    setClasses(
-      classes.filter((cls) => {
-        return cls[formValues.category]
-          .toLowerCase()
-          .includes(formValues.search.toLowerCase());
-      })
-    );
+    if (formValues.category === "duration") {
+      setClasses(
+        classes.filter((cls) =>
+          getTimeDiff(cls.start_time, cls.end_time)
+            .toString()
+            .includes(formValues.search)
+        )
+      );
+    } else {
+      setClasses(
+        classes.filter((cls) => {
+          return cls[formValues.category]
+            .toLowerCase()
+            .includes(formValues.search.toLowerCase());
+        })
+      );
+    }
   };
 
   const handleChange = (e) => {
@@ -242,11 +261,11 @@ export default function Dashboard() {
           onChange={handleChange}
         >
           <option>Select a Category...</option>
-          <option name="start_time">By Time</option>
-          <option name="duration">By Duration</option>
-          <option name="type">By Type</option>
-          <option name="intensity">By Intensity</option>
-          <option name="location">By Location</option>
+          <option value="start_time">By Time</option>
+          <option value="duration">By Duration</option>
+          <option value="type">By Type</option>
+          <option value="intensity">By Intensity</option>
+          <option value="location">By Location</option>
         </select>
         <input
           type="text"
@@ -258,7 +277,7 @@ export default function Dashboard() {
       </form>
       {/* list of all available */}
       <h2>All Available Classes</h2>
-      {customer.classes.length > 0 && (
+      {classes.length > 0 && (
         <div className="classInfo">
           <div className="titleBar">
             <h3>{` ${month}/${date}/${year} `}</h3>
@@ -267,7 +286,7 @@ export default function Dashboard() {
             <h3>Intensity</h3>
             <h3>Location</h3>
           </div>
-          {customer.classes.map((cls) => (
+          {classes.map((cls) => (
             <Class cls={cls} />
           ))}
         </div>

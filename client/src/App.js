@@ -24,7 +24,7 @@ function App() {
         <Route path="/corie" component={SignupForm} />
         <Route path="/george" component={SigninForm} />
       </Switch>
-      <CustomerDashboard />
+      {/* <CustomerDashboard /> */}
     </div>
   );
 }
