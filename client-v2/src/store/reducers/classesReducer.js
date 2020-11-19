@@ -50,7 +50,7 @@ const classesReducer = (state = initialState, action) => {
       return {
         ...state,
         isPosting: false,
-        classes: action.payload,
+        classes: state.classes.concat(action.payload),
       };
     case ADD_CLASS_FAILURE:
       return {
@@ -90,7 +90,9 @@ const classesReducer = (state = initialState, action) => {
       return {
         ...state,
         isDeleting: false,
-        classes: state.classes.filter((cls) => cls.id !== action.payload),
+        classes: state.classes.filter(
+          (cls) => cls.id !== Number(action.payload)
+        ),
       };
     case DELETE_CLASS_FAILURE:
       return {

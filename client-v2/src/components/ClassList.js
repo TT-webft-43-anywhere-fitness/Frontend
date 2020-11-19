@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getClasses } from "../store/actions/classesActions";
 
 import Class from "./Class";
+import EditingClass from "./EditingClass";
 
 export default function ClassList() {
   const classes = useSelector((state) => state.classes);
@@ -18,7 +19,7 @@ export default function ClassList() {
   let date = today.getDate();
 
   useEffect(() => {
-    getClasses();
+    dispatch(getClasses());
   }, []);
 
   return (
@@ -31,7 +32,7 @@ export default function ClassList() {
         <h3>Location</h3>
       </div>
       {console.log(user)}
-      {role == 2
+      {role == 1
         ? classes.classes.map((cls) => <Class cls={cls} mutable={true} />)
         : classes.classes.map((cls) => <Class key={cls.id} cls={cls} />)}
     </div>

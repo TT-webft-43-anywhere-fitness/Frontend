@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import UserCard from "./UserCard";
@@ -8,8 +8,13 @@ import Class from "./Class";
 import "../styles/DashboardCSS.css";
 
 export default function Dashboard() {
-  const state = useSelector((state) => state);
+  const [user, setUser] = useState({});
 
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
+  console.log(user);
   return (
     <div className="dashboard">
       <UserCard />
