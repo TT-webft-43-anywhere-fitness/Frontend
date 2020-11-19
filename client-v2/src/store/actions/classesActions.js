@@ -1,4 +1,4 @@
-import { AxiosWithAuth } from "../../utils/AxiosWithAuth";
+import AxiosWithAuth from "../../utils/AxiosWithAuth";
 
 import classActionTypes from "../../constants";
 import { BASE_URL } from "../../constants";

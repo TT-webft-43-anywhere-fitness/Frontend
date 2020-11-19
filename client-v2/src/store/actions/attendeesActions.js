@@ -1,6 +1,7 @@
-import { AxiosWithAuth } from "../../utils/axiosWithAuth";
+import AxiosWithAuth from "../../utils/axiosWithAuth";
 
 import { attendeesActionTypes } from "../../constants";
+import { BASE_URL } from "../../constants";
 
 export const getAttendees = (classId) => (dispatch) => {
   dispatch({ type: attendeesActionTypes.FETCH_ATTENDEES_START });

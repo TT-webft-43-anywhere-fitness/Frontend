@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 function AxiosWithAuth() {
-  Axios.create({
+  return Axios.create({
     baseURL:
       "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/",
     headers: {
@@ -10,4 +10,4 @@ function AxiosWithAuth() {
   });
 }
 
-export AxiosWithAuth;
+export default AxiosWithAuth;

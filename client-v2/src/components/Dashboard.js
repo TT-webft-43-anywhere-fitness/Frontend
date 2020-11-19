@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+
+import UserCard from "./UserCard";
+import ClassList from "./ClassList";
+import Class from "./Class";
 
 export default function Dashboard() {
   const state = useSelector((state) => state);
-  return <div>Dashboard</div>;
+
+  return (
+    <div className="dashboard">
+      <UserCard />
+      <ClassList />
+    </div>
+  );
 }

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Axios from "axios";
+import React from "react";
 
 import { useForm } from "../hooks/useForm";
 
@@ -10,31 +9,6 @@ const initialFormVals = {
 
 export default function Signin() {
   const [formVals, , handleChange, handleSubmit] = useForm(initialFormVals);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormVals({
-  //     ...formVals,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   Axios.post("https://covid-bod.herokuapp.com/api/auth/login", formVals)
-  //     .then((res) => {
-  //       console.log("Login Successful ==>> ", res);
-  //       localStorage.setItem("token", res.data.token);
-  //     })
-  //     .catch((err) => {
-  //       console.log(
-  //         "Login Failed ==>> ",
-  //         err.message,
-  //         " Error Type ==>> ",
-  //         err.type
-  //       );
-  //     });
-  // };
 
   return (
     <form onSubmit={handleSubmit}>
