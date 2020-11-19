@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-function axiosWithAuth() {
+function AxiosWithAuth() {
   Axios.create({
     baseURL:
       "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/",
