@@ -6,6 +6,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import customerActions from "../actions/customerActions";
 import instructorActions from "../actions/instructorActions";
 
+import Class from "./Class";
 import EditingClass from "../components/EditingClass";
 
 const initialValues = {
@@ -31,7 +32,7 @@ const initialEditingValues = {
   end_time: "",
   intensity: "",
   location: "",
-  enrolled: "",
+  enrolled: 0,
   max_size: "",
 };
 // enroll/unenroll user_id in endpoint path, class_id in bodyobj
@@ -50,6 +51,11 @@ export default function Dashboard() {
   const [addValues, setAddValues] = useState(initialAddValues);
   const [user, setUser] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+
+  let today = new Date();
+  let month = today.getMonth();
+  let year = today.getFullYear();
+  let date = today.getDate();
 
   // fetchUserInfo fn to make api call and send resp as a payload to reducer
   useEffect(() => {
@@ -148,6 +154,21 @@ export default function Dashboard() {
           classlist */}
       Dashboard
       {/* addClass form */}
+      {user.role == 2 && instructor.classes.length > 0 && (
+        <div className="classInfo">
+          <h2>{user.username}'s Classes</h2>
+          <div className="titleBar">
+            <h3>{` ${month}/${date}/${year} `}</h3>
+            <h3>Description</h3>
+            <h3>Enrolled</h3>
+            <h3>Intensity</h3>
+            <h3>Location</h3>
+          </div>
+          {instructor.classes.map((cls) => (
+            <Class cls={cls} mutable={true} />
+          ))}
+        </div>
+      )}
       {user.role === 2 && (
         <form onSubmit={handleAdd}>
           <label htmlFor="class_name">Name</label>
@@ -236,6 +257,21 @@ export default function Dashboard() {
         <button>Submit</button>
       </form>
       {/* list of all available */}
+      <h2>All Available Classes</h2>
+      {customer.classes.length > 0 && (
+        <div className="classInfo">
+          <div className="titleBar">
+            <h3>{` ${month}/${date}/${year} `}</h3>
+            <h3>Description</h3>
+            <h3>Enrolled</h3>
+            <h3>Intensity</h3>
+            <h3>Location</h3>
+          </div>
+          {customer.classes.map((cls) => (
+            <Class cls={cls} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
