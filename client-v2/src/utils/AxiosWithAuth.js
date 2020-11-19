@@ -10,4 +10,4 @@ function AxiosWithAuth() {
   });
 }
 
-export axiosWithAuth;
+export AxiosWithAuth;
