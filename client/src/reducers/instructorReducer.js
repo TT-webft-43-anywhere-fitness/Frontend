@@ -19,7 +19,7 @@ const instructorReducer = (state = initialState, action) => {
     case ADD_CLASS:
       return {
         ...state,
-        classes: action.payload,
+        classes: state.classes.concat(action.payload),
       };
     case DELETE_CLASS:
       return state;
