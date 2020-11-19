@@ -1,16 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getClasses } from "../store/actions/classesActions";
+import {
+  getClasses,
+  getInstructorClasses,
+} from "../store/actions/classesActions";
 
 import Class from "./Class";
 
 export default function ClassList() {
+  const [user, setUser] = useState({});
   const classes = useSelector((state) => state.classes);
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { role } = useParams;
+  // const { role } = useParams;
 
   let today = new Date();
   let month = today.getMonth();
@@ -18,8 +22,15 @@ export default function ClassList() {
   let date = today.getDate();
 
   useEffect(() => {
-    getClasses();
+    dispatch(getClasses());
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
+
+  useEffect(() => {
+    if (user.role === 2) {
+      dispatch(getInstructorClasses(user.id));
+    }
+  }, [user]);
 
   return (
     <div key="all-available-classes" className="classInfo">
@@ -31,7 +42,7 @@ export default function ClassList() {
         <h3>Location</h3>
       </div>
       {console.log(user)}
-      {role == 2
+      {user.role == 2
         ? classes.classes.map((cls) => <Class cls={cls} mutable={true} />)
         : classes.classes.map((cls) => <Class key={cls.id} cls={cls} />)}
     </div>
