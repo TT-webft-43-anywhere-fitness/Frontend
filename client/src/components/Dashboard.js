@@ -6,9 +6,34 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import customerActions from "../actions/customerActions";
 import instructorActions from "../actions/instructorActions";
 
-const initialState = {
+import Class from "./Class";
+import EditingClass from "../components/EditingClass";
+
+const initialValues = {
   selector: "",
   search: "",
+};
+
+const initialAddValues = {
+  class_name: "",
+  type: "",
+  start_time: "",
+  end_time: "",
+  intensity: "",
+  location: "",
+  enrolled: 0,
+  max_size: "",
+};
+
+const initialEditingValues = {
+  class_name: "",
+  type: "",
+  start_time: "",
+  end_time: "",
+  intensity: "",
+  location: "",
+  enrolled: 0,
+  max_size: "",
 };
 // enroll/unenroll user_id in endpoint path, class_id in bodyobj
 export default function Dashboard() {
@@ -18,10 +43,19 @@ export default function Dashboard() {
   // useSelector to pull available classes list from reducer
   const customer = useSelector((state) => state.customer);
   const instructor = useSelector((state) => state.instructor);
+  const [classes, setClasses] = useState(customer.classes);
   const dispatch = useDispatch();
   // useState for search form
-  const [formValues, setFormValues] = useState(initialState);
+  const [formValues, setFormValues] = useState(initialValues);
+  const [editingValues, setEditingValues] = useState(initialEditingValues);
+  const [addValues, setAddValues] = useState(initialAddValues);
   const [user, setUser] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+
+  let today = new Date();
+  let month = today.getMonth();
+  let year = today.getFullYear();
+  let date = today.getDate();
 
   // fetchUserInfo fn to make api call and send resp as a payload to reducer
   useEffect(() => {
@@ -31,11 +65,20 @@ export default function Dashboard() {
         console.log(res);
         setUser(res.data);
       });
+    dispatch(customerActions.getClasses());
+    dispatch(instructorActions.findingClasses(user.id));
   }, []);
 
-  useEffect(() => {
-    dispatch(customerActions.getClasses());
-  }, []);
+  const fetchClassEdit = (id) => {
+    axiosWithAuth()
+      .get(`/api/classes/${id}`)
+      .then((res) => {
+        setEditingValues(res.data);
+      })
+      .catch((err) => {
+        console.log("Get Class('Editing') ==>> ", err.message, err.type);
+      });
+  };
 
   // fetchAvailableClasses fn to make api call and send resp as a payload
   //// to reducer
@@ -47,8 +90,44 @@ export default function Dashboard() {
   // clickListener for setting isAttending api call for customer
 
   // changeHandler fn for search
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setClasses(
+      classes.filter((cls) => {
+        return cls[formValues.category]
+          .toLowerCase()
+          .includes(formValues.search.toLowerCase());
+      })
+    );
+  };
 
-  // submitHandler fn to send action to reducer for filtering class list for customer
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  const handleAddChange = (e) => {
+    const { name, value } = e.target;
+    setAddValues({
+      ...addValues,
+      [name]: value,
+    });
+  };
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+    const newAdd = {
+      ...addValues,
+      intensity: Number(addValues.intensity),
+      max_size: Number(addValues.max_size),
+      instructor_id: user.id,
+    };
+    dispatch(instructorActions.addClass(newAdd));
+    setAddValues(initialEditingValues);
+  };
 
   return (
     <div>
@@ -74,6 +153,125 @@ export default function Dashboard() {
       {/* also might need a clear search that sends action to reducer to refetch
           classlist */}
       Dashboard
+      {/* addClass form */}
+      {user.role == 2 && instructor.classes.length > 0 && (
+        <div className="classInfo">
+          <h2>{user.username}'s Classes</h2>
+          <div className="titleBar">
+            <h3>{` ${month}/${date}/${year} `}</h3>
+            <h3>Description</h3>
+            <h3>Enrolled</h3>
+            <h3>Intensity</h3>
+            <h3>Location</h3>
+          </div>
+          {instructor.classes.map((cls) => (
+            <Class cls={cls} mutable={true} />
+          ))}
+        </div>
+      )}
+      {user.role === 2 && (
+        <form onSubmit={handleAdd}>
+          <label htmlFor="class_name">Name</label>
+          <input
+            type="text"
+            name="class_name"
+            onChange={handleAddChange}
+            value={addValues.name}
+          />
+          <label htmlFor="type">Type</label>
+          <input
+            type="text"
+            name="type"
+            onChange={handleAddChange}
+            value={addValues.type}
+          />
+          <label htmlFor="start_time">Start Time</label>
+          <input
+            type="time"
+            name="start_time"
+            onChange={handleAddChange}
+            value={addValues.start_time}
+          />
+          <label htmlFor="end_time">End Time</label>
+          <input
+            type="time"
+            name="end_time"
+            onChange={handleAddChange}
+            value={addValues.edit_time}
+          />
+          <label htmlFor="intensity">Intensity</label>
+          <input
+            type="text"
+            name="intensity"
+            onChange={handleAddChange}
+            value={addValues.intensity}
+          />
+          <label htmlFor="location">Location</label>
+          <input
+            type="text"
+            name="location"
+            onChange={handleAddChange}
+            value={addValues.location}
+          />
+          <label htmlFor="max_size">Max Class Size</label>
+          <input
+            type="text"
+            name="max_size"
+            onChange={handleAddChange}
+            value={addValues.max_size}
+          />
+          <button>Add Class</button>
+        </form>
+      )}
+      {/* editClass Form */}
+      {/* {user.role === 2 &&
+        instructor.classes.map((cls) => (
+          <EditingClass
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            cls={cls}
+            handleChange={handleChange}
+            editingValues={editingValues}
+          />
+        ))} */}
+      {/* Search form */}
+      <form onSubmit={handleSubmit}>
+        <select
+          name="category"
+          value={formValues.category}
+          onChange={handleChange}
+        >
+          <option>Select a Category...</option>
+          <option name="start_time">By Time</option>
+          <option name="duration">By Duration</option>
+          <option name="type">By Type</option>
+          <option name="intensity">By Intensity</option>
+          <option name="location">By Location</option>
+        </select>
+        <input
+          type="text"
+          name="search"
+          value={formValues.search}
+          onChange={handleChange}
+        />
+        <button>Submit</button>
+      </form>
+      {/* list of all available */}
+      <h2>All Available Classes</h2>
+      {customer.classes.length > 0 && (
+        <div className="classInfo">
+          <div className="titleBar">
+            <h3>{` ${month}/${date}/${year} `}</h3>
+            <h3>Description</h3>
+            <h3>Enrolled</h3>
+            <h3>Intensity</h3>
+            <h3>Location</h3>
+          </div>
+          {customer.classes.map((cls) => (
+            <Class cls={cls} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
