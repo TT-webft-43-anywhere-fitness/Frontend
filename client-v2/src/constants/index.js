@@ -1,4 +1,5 @@
-export const BASE_URL = "https://covid-bod.herokuapp.com/";
+export const BASE_URL =
+  "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/";
 
 export const FETCH_CLASSES_START = "FETCH_CLASSES_START";
 export const FETCH_CLASSES_SUCCESS = "FETCH_CLASSES_SUCCESS";
@@ -43,4 +44,4 @@ const classActionTypes = {
   DELETE_CLASS_SUCCESS,
   DELETE_CLASS_FAILURE,
 };
-export default classesActionTypes;
+export default classActionTypes;
