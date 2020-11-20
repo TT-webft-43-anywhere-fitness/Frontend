@@ -16,7 +16,7 @@ import Class from "./Class";
 import "../styles/DashboardCSS.css";
 
 const initialFormVals = {
-  selector: "",
+  category: "",
   search: "",
 };
 
@@ -53,9 +53,9 @@ export default function Dashboard() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formValues.category === "duration") {
-      searchClassesTime(formValues.search);
+      dispatch(searchClassesTime(formValues.search));
     } else {
-      searchClasses(formValues);
+      dispatch(searchClasses(formValues));
     }
   };
 

@@ -125,7 +125,7 @@ const classesReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload,
       };
-    case SEARCH_CLASSES:
+    case SEARCH_CLASSES_TIME:
       return {
         ...state,
         classes: state.classes.filter((cls) => {
@@ -134,13 +134,14 @@ const classesReducer = (state = initialState, action) => {
             .includes(action.payload);
         }),
       };
-    case SEARCH_CLASSES_TIME:
+    case SEARCH_CLASSES:
       return {
         ...state,
         classes: state.classes.filter((cls) => {
           return cls[action.payload.category]
+            .toString()
             .toLowerCase()
-            .includes(action.payload.toLowerCase());
+            .includes(action.payload.search.toLowerCase());
         }),
       };
     default:

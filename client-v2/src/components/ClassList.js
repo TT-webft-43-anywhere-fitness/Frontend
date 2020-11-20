@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -8,7 +7,6 @@ import {
 } from "../store/actions/classesActions";
 
 import Class from "./Class";
-import EditingClass from "./EditingClass";
 
 export default function ClassList() {
   const [user, setUser] = useState({});
