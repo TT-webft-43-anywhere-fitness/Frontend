@@ -71,3 +71,21 @@ export const deleteClass = (classId) => (dispatch) => {
       });
     });
 };
+
+export const getInstructorClasses = (instructorId) => (dispatch) => {
+  dispatch({ type: classActionTypes.FETCH_INSTRUCTOR_CLASSES_START });
+  AxiosWithAuth()
+    .get(`${BASE_URL}/api/users/${instructorId}/classes`)
+    .then((res) => {
+      dispatch({
+        type: classActionTypes.FETCH_INSTRUCTOR_CLASSES_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: classActionTypes.FETCH_INSTRUCTOR_CLASSES_FAILURE,
+        payload: err.message,
+      });
+    });
+};

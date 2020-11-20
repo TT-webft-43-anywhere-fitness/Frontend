@@ -91,7 +91,7 @@ const classesReducer = (state = initialState, action) => {
         ...state,
         isDeleting: false,
         classes: state.classes.filter(
-          (cls) => cls.id !== Number(action.payload)
+          (cls) => cls.id !== Number(action.payload.id)
         ),
       };
     case DELETE_CLASS_FAILURE:
