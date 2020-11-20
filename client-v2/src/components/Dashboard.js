@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
   getClasses,
   getInstructorClasses,
+  searchClasses,
+  searchClassesTime,
 } from "../store/actions/classesActions";
 
 import UserCard from "./UserCard";
@@ -13,6 +15,11 @@ import Class from "./Class";
 
 import "../styles/DashboardCSS.css";
 
+const initialFormVals = {
+  selector: "",
+  search: "",
+};
+
 export default function Dashboard() {
   const [user, setUser] = useState({});
   const instructorClasses = useSelector(
@@ -20,6 +27,7 @@ export default function Dashboard() {
   );
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [formValues, setFormValues] = useState(initialFormVals);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,6 +41,23 @@ export default function Dashboard() {
     dispatch(getClasses());
     dispatch(getInstructorClasses(user.id));
   }, [isAdding]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (formValues.category === "duration") {
+      searchClassesTime(formValues.search);
+    } else {
+      searchClasses(formValues);
+    }
+  };
 
   return (
     <div className="dashboard">
@@ -65,6 +90,27 @@ export default function Dashboard() {
             />
           );
         })}
+      <form key="customer-search-form" onSubmit={handleSubmit}>
+        <select
+          name="category"
+          value={formValues.category}
+          onChange={handleChange}
+        >
+          <option>Select a Category...</option>
+          <option value="start_time">By Time</option>
+          <option value="duration">By Duration</option>
+          <option value="type">By Type</option>
+          <option value="intensity">By Intensity</option>
+          <option value="location">By Location</option>
+        </select>
+        <input
+          type="text"
+          name="search"
+          value={formValues.search}
+          onChange={handleChange}
+        />
+        <button>Submit</button>
+      </form>
       <ClassList />
     </div>
   );

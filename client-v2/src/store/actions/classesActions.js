@@ -1,6 +1,9 @@
 import AxiosWithAuth from "../../utils/AxiosWithAuth";
 
-import classActionTypes from "../../constants";
+import classActionTypes, {
+  SEARCH_CLASSES,
+  SEARCH_CLASSES_TIME,
+} from "../../constants";
 import { BASE_URL } from "../../constants";
 
 export const getClasses = () => (dispatch) => {
@@ -88,4 +91,12 @@ export const getInstructorClasses = (instructorId) => (dispatch) => {
         payload: err.message,
       });
     });
+};
+
+export const searchClasses = (search) => (dispatch) => {
+  dispatch({ type: SEARCH_CLASSES, payload: search });
+};
+
+export const searchClassesTime = (search) => (dispatch) => {
+  dispatch({ type: SEARCH_CLASSES_TIME, payload: search });
 };

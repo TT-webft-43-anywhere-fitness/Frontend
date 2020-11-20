@@ -14,7 +14,11 @@ import {
   FETCH_INSTRUCTOR_CLASSES_START,
   FETCH_INSTRUCTOR_CLASSES_SUCCESS,
   FETCH_INSTRUCTOR_CLASSES_FAILURE,
+  SEARCH_CLASSES,
+  SEARCH_CLASSES_TIME,
 } from "../../constants/index.js";
+
+import { getTimeDiff } from "../../utils/getTimeDiff";
 
 const initialState = {
   classes: [],
@@ -121,9 +125,41 @@ const classesReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload,
       };
+    case SEARCH_CLASSES:
+      return {
+        ...state,
+        classes: state.classes.filter((cls) => {
+          return getTimeDiff(cls.start_time, cls.end_time)
+            .toString()
+            .includes(action.payload);
+        }),
+      };
+    case SEARCH_CLASSES_TIME:
+      return {
+        ...state,
+        classes: state.classes.filter((cls) => {
+          return cls[action.payload.category]
+            .toLowerCase()
+            .includes(action.payload.toLowerCase());
+        }),
+      };
     default:
       return state;
   }
 };
 
 export default classesReducer;
+// setClasses(
+//   classes.filter((cls) =>
+//     getTimeDiff(cls.start_time, cls.end_time)
+//       .toString()
+//       .includes(formValues.search)
+//   )
+// );
+// setClasses(
+//   classes.filter((cls) => {
+//     return cls[formValues.category]
+//       .toLowerCase()
+//       .includes(formValues.search.toLowerCase());
+//   })
+// );

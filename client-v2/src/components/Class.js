@@ -7,9 +7,10 @@ import {
   getInstructorClasses,
 } from "../store/actions/classesActions";
 
-export default function Class({ cls, mutable, setIsEditing = null }) {
+export default function Class({ cls, mutable }) {
   const dispatch = useDispatch();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     dispatch(getInstructorClasses(JSON.parse(localStorage.getItem("user")).id));
