@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { deleteClass } from "../store/actions/classesActions";
+import {
+  deleteClass,
+  getInstructorClasses,
+} from "../store/actions/classesActions";
 
 export default function Class({ cls, mutable, setIsEditing = null }) {
   const dispatch = useDispatch();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    dispatch(getInstructorClasses(JSON.parse(localStorage.getItem("user")).id));
+  }, [isDeleting]);
 
   return (
     <div className="classDetails">
@@ -13,6 +21,7 @@ export default function Class({ cls, mutable, setIsEditing = null }) {
         <button
           onClick={() => {
             dispatch(deleteClass(cls.id));
+            setIsDeleting(!isDeleting);
           }}
         >
           X

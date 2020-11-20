@@ -31,6 +31,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     dispatch(getClasses());
+    dispatch(getInstructorClasses(user.id));
   }, [isAdding]);
 
   return (
