@@ -56,6 +56,7 @@ export default class SignupForm extends Component {
       .then((res) => {
         console.log("Login Successful ==>> ", res);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("id", res.data.id);
         this.props.history.push(`/dashboard/${res.data.id}`);
       })
       .catch((err) => {

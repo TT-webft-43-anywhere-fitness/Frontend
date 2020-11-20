@@ -22,7 +22,7 @@ export const getClasses = () => {
 export const isAttending = (userID, classID) => {
   return (dispatch) => {
     axiosWithAuth()
-      .post("", { userID, classID }) // add api
+      .post(`/api/classes/${classID}/attendees`, { userID, classID }) // add api
       .then((res) => {
         dispatch({ type: IS_ATTENDING, payload: res.data });
       })
