@@ -51,7 +51,7 @@ const classesReducer = (state = initialState, action) => {
       return {
         ...state,
         isPosting: false,
-        classes: action.payload,
+        classes: state.classes.concat(action.payload),
       };
     case ADD_CLASS_FAILURE:
       return {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import UserCard from "./UserCard";
@@ -9,6 +9,12 @@ import Class from "./Class";
 import "../styles/DashboardCSS.css";
 
 export default function Dashboard() {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
   const instructorClasses = useSelector((state) => state.instructorClasses);
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
