@@ -32,11 +32,12 @@ export function useForm(initialVals, signup = false) {
         ...formVals,
         role: formVals.role ? 2 : 1,
       };
-      AxiosWithHeaders.post(
-        "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/register",
-        // "https://covid-bod.herokuapp.com/api/auth/register",
-        newUser
-      )
+      AxiosWithHeaders()
+        .post(
+          "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/register",
+          // "https://covid-bod.herokuapp.com/api/auth/register",
+          newUser
+        )
         .then((res) => console.log("Signup Successful ==>> ", res))
         .catch((err) =>
           console.log(
@@ -48,14 +49,15 @@ export function useForm(initialVals, signup = false) {
         );
     }
     dispatch({ type: userActionTypes.FETCH_USER_START });
-    AxiosWithHeaders.post(
-      "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/login",
-      // "https://covid-bod.herokuapp.com/api/auth/login",
-      {
-        username: formVals.username,
-        password: formVals.password,
-      }
-    )
+    AxiosWithHeaders()
+      .post(
+        "https://cors-anywhere.herokuapp.com/https://covid-bod.herokuapp.com/api/auth/login",
+        // "https://covid-bod.herokuapp.com/api/auth/login",
+        {
+          username: formVals.username,
+          password: formVals.password,
+        }
+      )
       .then((res) => {
         console.log("Login Successful ==>> ", res);
         localStorage.setItem("token", res.data.token);

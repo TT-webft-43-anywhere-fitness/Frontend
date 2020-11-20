@@ -42,9 +42,9 @@ export default function ClassList() {
         <h3>Intensity</h3>
         <h3>Location</h3>
       </div>
-      {user.role == 2
+      {/* {user.role == 2
         ? classes.classes.map((cls) => <Class cls={cls} mutable={true} />)
-        : classes.classes.map((cls) => <Class key={cls.id} cls={cls} />)}
+        : classes.classes.map((cls) => <Class key={cls.id} cls={cls} />)} */}
       {classes.classes.map((cls) => (
         <Class key={cls.id} cls={cls} />
       ))}

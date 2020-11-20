@@ -11,6 +11,9 @@ import {
   DELETE_CLASS_START,
   DELETE_CLASS_SUCCESS,
   DELETE_CLASS_FAILURE,
+  FETCH_INSTRUCTOR_CLASSES_START,
+  FETCH_INSTRUCTOR_CLASSES_SUCCESS,
+  FETCH_INSTRUCTOR_CLASSES_FAILURE,
 } from "../../constants/index.js";
 
 const initialState = {
@@ -99,6 +102,23 @@ const classesReducer = (state = initialState, action) => {
       return {
         ...state,
         isDeleting: false,
+        error: action.payload,
+      };
+    case FETCH_INSTRUCTOR_CLASSES_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case FETCH_INSTRUCTOR_CLASSES_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        instructorClasses: action.payload,
+      };
+    case FETCH_INSTRUCTOR_CLASSES_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
         error: action.payload,
       };
     default:

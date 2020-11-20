@@ -6,7 +6,6 @@ import { AxiosWithAuth } from "../utils/AxiosWithAuth";
 import { addClass, editClass } from "../store/actions/classesActions";
 
 const initialFormVals = {
-  id: "",
   class_name: "",
   type: "",
   start_time: "",
@@ -18,7 +17,13 @@ const initialFormVals = {
   instructor_id: "",
 };
 
-export default function ClassForm({ isAdding, isEditing, classDetails }) {
+export default function ClassForm({
+  isAdding,
+  isEditing,
+  classDetails,
+  setIsAdding,
+  instrId,
+}) {
   const [formVals, setFormVals, handleChange, _blank] = useForm(
     initialFormVals
   );
@@ -31,7 +36,12 @@ export default function ClassForm({ isAdding, isEditing, classDetails }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isAdding) {
-      dispatch(addClass(formVals));
+      const newClass = {
+        ...formVals,
+        instructor_id: instrId,
+      };
+      dispatch(addClass(newClass));
+      setIsAdding(false);
     } else if (isEditing) {
       dispatch(editClass(formVals.id, formVals));
     }
