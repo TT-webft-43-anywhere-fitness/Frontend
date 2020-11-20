@@ -15,6 +15,7 @@ import {
 
 const initialState = {
   classes: [],
+  instructorClasses: [],
   isFetching: false,
   isPosting: false,
   isEditing: false,

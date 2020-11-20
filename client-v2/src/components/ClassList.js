@@ -45,6 +45,9 @@ export default function ClassList() {
       {user.role == 2
         ? classes.classes.map((cls) => <Class cls={cls} mutable={true} />)
         : classes.classes.map((cls) => <Class key={cls.id} cls={cls} />)}
+      {classes.classes.map((cls) => (
+        <Class key={cls.id} cls={cls} />
+      ))}
     </div>
   );
 }

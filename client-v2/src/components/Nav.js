@@ -13,6 +13,7 @@ export default function Nav() {
           to="/"
           onClick={() => {
             localStorage.removeItem("token");
+            localStorage.removeItem("user");
           }}
         >
           Sign Out

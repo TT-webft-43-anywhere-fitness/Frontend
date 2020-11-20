@@ -1,7 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import { useForm } from "../hooks/useForm";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { AxiosWithAuth } from "../utils/AxiosWithAuth";
+import { addClass, editClass } from "../store/actions/classesActions";
 
 const initialFormVals = {
   id: "",
@@ -16,15 +18,22 @@ const initialFormVals = {
   instructor_id: "",
 };
 
-export default function ClassForm({ isAdding, isEditing }) {
-  const [formVals, setFormVals, handleChange] = useForm(initialFormVals);
+export default function ClassForm({ isAdding, isEditing, classDetails }) {
+  const [formVals, setFormVals, handleChange, _blank] = useForm(
+    initialFormVals
+  );
+  const dispatch = useDispatch();
+
+  if (isEditing) {
+    setFormVals(classDetails);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isAdding) {
-      return null;
+      dispatch(addClass(formVals));
     } else if (isEditing) {
-      return null;
+      dispatch(editClass(formVals.id, formVals));
     }
   };
 
